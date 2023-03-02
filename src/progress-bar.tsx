@@ -22,6 +22,7 @@ export function ProgressBar({
 }: {
   status?: {
     later: number;
+    waiting: number;
     now: number;
     done: number;
   };
@@ -36,8 +37,8 @@ export function ProgressBar({
       </div>
     );
   }
-  const { done, now, later } = status;
-  const total = done + now + later;
+  const { done, now, later, waiting } = status;
+  const total = done + now + later + waiting;
   const percentage = total === 0 ? `0` : ((done / total) * 100).toFixed(0);
   const shortText = `${percentage}%`;
   const fullText = `${mode}:${done}/${total}`;
@@ -47,6 +48,7 @@ export function ProgressBar({
       <div className="todo-master-progress-bar__bars">
         {renderBar(done, "done")}
         {renderBar(now, "now")}
+        {renderBar(later, "waiting")}
         {renderBar(later, "later")}
       </div>
       <div className="todo-master-progress-bar__label" style={{ width }}>
